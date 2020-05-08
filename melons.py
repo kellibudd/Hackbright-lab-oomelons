@@ -15,8 +15,8 @@ class AbstractMelonOrder():
         base_price = 5
         total = (1 + self.tax) * self.qty * base_price
 
-        if self.species == "christmas":
-            return total * 3
+        if self.species == "christmas melon":
+            return total * 1.5
 
         else:
             return total
@@ -32,7 +32,6 @@ class DomesticMelonOrder(AbstractMelonOrder):
 
     order_type = "domestic"
     tax = 0.08
-    country_code = None
 
 
 class InternationalMelonOrder(AbstractMelonOrder):
