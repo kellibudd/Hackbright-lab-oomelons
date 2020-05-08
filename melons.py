@@ -2,24 +2,24 @@
 class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
 
-    order_type = None
-    tax = None
-
-    def __init__(self, species, qty, country_code):
+    def __init__(self, species, qty):
         """Initialize melon order attributes."""
 
         self.species = species
         self.qty = qty
-        self.country_code = country_code
-        # self.shipped = False
+        self.shipped = False
 
     def get_total(self):
         """Calculate price, including tax."""
-
+        
         base_price = 5
         total = (1 + self.tax) * self.qty * base_price
 
-        return total
+        if self.species == "christmas":
+            return total * 3
+
+        else:
+            return total
 
     def mark_shipped(self):
         """Record the fact than an order has been shipped."""
@@ -41,7 +41,25 @@ class InternationalMelonOrder(AbstractMelonOrder):
     order_type = "international"
     tax = 0.17
 
+    def __init__(self, species, qty, country_code):
+        super().__init__(species, qty)
+
+        self.country_code = country_code
+
     def get_country_code(self):
         """Return the country code."""
 
         return self.country_code
+
+    def get_total(self):
+
+        if self.qty < 10:
+            return super().get_total() + 3
+
+        else:
+            return super().get_total()
+
+
+    #questions
+    #why do we need self as a parameter in get_total and mark_shipped?
+    #if I were to return 
